@@ -1,0 +1,38 @@
+Original File: 2.txt
+Fullname,Address,City,Phone,Phone
+Traci H Nolan,18200 NE 149th Ave,Brush Prairie,98606,3609104619.0
+Leonard Wasson,945 s Marion Rd,Sioux Falls,57106,6052012350.0
+james b young,8246 Magnolia Glen Dr,Humble,77346,2145074024.0
+Maria Vega,"Calle José Maria Peridis, 4",Getafe,28902,670747242.0
+Gregory M Stacey,21405 Rupel way,Tehachapi,93561,5593003366.0
+Gavin Peoples,4 Goldfinch Drive,Windham,04062,2077124895.0
+Lark Hudson,2111 Bagnell Dam Blvd,Lake Ozark,65049,4172985820.0
+George D Fairbanks,9347 Shadowglen Ct,Littleton,80126,3039133011.0
+Sarah Landes,306 South Street,Dane,53529,6084385253.0
+Pamela Logan,13025 Cordelia Ln,Orlando,32824,5612872152.0
+Amy E Hamilton,14681 Royal Way,Truckee,96161,5303867998.0
+Derwin Hollins,476 york ave,Saint paul,55130,6512161449.0
+Robert Sutton,483 Webb Road,Chadds Ford,19317-9722,6109099291.0
+Kasey Powlison,632 Korb Road,Mansfield,16933,5704042451.0
+Patricia Costello,303 Winifred Drive,Totowa,07512,9739343254.0
+Maria G Neno,118 clara street,New Bedford,02744,7744003838.0
+Susan Ricciardi,18 Main St Apt 4,Schwenksville,19473,2674240274.0
+Remi lyn S Lara,198 High Street,Northvale,07647,6612296439.0
+Edward G Thomas,96118 Jeran Miles Ct,Las Vegas,89147,7024683105.0
+Jamie R Avanzato,63 River Rd.,Smithfield,02917,4012098305.0
+Erin Cauley,78 Pleasant Street,Westford,01886,9784675541.0
+Heather Cullen,N7009 County Road D,Holmen,54636,6084989122.0
+Jeffrey S Wetzel,3080 15 mile Rd,Cedar springs,49319,6162637826.0
+Lucas A Frazier,6980 Huntsman Ct,Cincinnati,45230,5135085537.0
+Thomas E Holtz,607 Bavaria Drive,Minot,58703,7015090727.0
+Adelaide Brady,17316 N FM 400,Idalou,79329,8062391018.0
+Tucker S Sholtes,1920 S Ocean Drive,Fort Lauderdale,33316,6077593939.0
+David Aseltine,90 Lower Barnett Hill Road,Middlese,05602,8022233620.0
+Erica  Kling;53219,4147455796,2844 s 27th street,Milwaukee,
+Meg Benke,202 east ave,Saratoga springs,12866,5185270059.0
+Holly A Voight,306 W Blair,Mineola,75773,9034316180.0
+Courtney A Paradis,585 Fern Hill Road,Bristol,06010,8603875261.0
+Ryan Orr,2055 w 12015 s,Riverton,84065,8018919072.0
+Jessie e draper,8477 Windy Hill Dr,Colorado Springs,80920,3216935568.0
+"Ralph J. Salvucci, Jr",2691 Majestic Oaks Ct.,Beavercreek,45431,9374270912.0
+Cheryl C Bradley,9729 E. Wing Road,Shepherd,48883,9898285041.0
