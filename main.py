@@ -16,7 +16,7 @@ possible_columns = {
     'First name': re.compile(r'^(?![\s.]+$)[a-zA-Z\s.]{2,30}$', re.IGNORECASE),
     'Last name': re.compile(r'^(?![\s.]+$)[a-zA-Z\s.]{2,30}$', re.IGNORECASE),
     'Zip': re.compile(r'^\d{5}(-\d{4})?$', re.IGNORECASE),
-    'City': re.compile(r'^(?![\s.]+$)[a-zA-Z\s.-]{2,50}$', re.IGNORECASE),
+    'City': re.compile(r'^(?![\s.]+$)[a-zA-Z\s.-]+$', re.IGNORECASE),
     'State': re.compile(r'^(?![\s.]+$)[a-zA-Z\s.]{2,50}$', re.IGNORECASE),
     'Address': re.compile(r'^\d+\s+[\w\s.-]+(\s+[\w\s.-]+)*$', re.IGNORECASE),  # Обновлено для учета номеров квартир
     'Phone': re.compile(r'^\d{10,}$'),  # Обновленный шаблон для телефонов
@@ -57,6 +57,11 @@ def resolve_ambiguous_columns(candidates, col_data):
             return 'Email'
         else:
             return 'Phone'
+    # Additional checks for 'City' vs 'Unknown'
+    if 'City' in candidates and 'Unknown' in candidates:
+        city_count = sum(1 for item in col_data if item in common_cities)
+        if city_count > 0:
+            return 'City'
     # Пример использования словарей для разрешения неоднозначности между именем и фамилией
     if 'First name' in candidates and 'Last name' in candidates:
         first_name_count = sum(1 for item in col_data if item in common_first_names)
@@ -66,6 +71,25 @@ def resolve_ambiguous_columns(candidates, col_data):
         else:
             return 'Last name'
     return candidates[0]
+
+# Function to identify if a string is a city name using heuristics
+def is_possible_city(item):
+    # Check if the item is in the common cities dictionary
+    if item in common_cities:
+        return True
+
+    # Use regular expressions to check for common city name patterns
+    city_pattern = re.compile(r'^(?![\s.]+$)[a-zA-Z\s.-]+$', re.IGNORECASE)
+    if city_pattern.match(item):
+        # Additional heuristics can be implemented here
+        # For example, checking if the item is capitalized (common for city names)
+        if item.istitle():
+            return True
+        # Checking for common city suffixes like "City", "Town", "Village", etc.
+        common_city_suffixes = ['city', 'town', 'village', 'borough', 'burgh', 'port', 'haven', 'falls', 'dale', 'field']
+        if any(item.lower().endswith(suffix) for suffix in common_city_suffixes):
+            return True
+    return False
 
 # Функция для определения типа столбца
 def identify_column(col_data):
@@ -100,12 +124,11 @@ def identify_column(col_data):
                     if column_name == 'Last name' and item not in common_last_names:
                         continue
 
-                # Улучшенная проверка для городов
-                if column_name == 'City':
-                    if item in common_cities:
-                        column_matches[column_name] += 1
-                        matched = True
-                    continue  # Пропускаем остальные проверки для городов
+                # Improved check for cities using the is_possible_city function
+                if column_name == 'City' and is_possible_city(item):
+                    column_matches[column_name] += 1
+                    matched = True
+                    continue  # Skip other checks for cities
 
                 column_matches[column_name] += 1
                 matched = True

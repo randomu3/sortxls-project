@@ -98,7 +98,11 @@ common_first_names = set([
 
 common_last_names = set(["smith", "johnson", "williams", "brown", "jones", ...])
 
-common_cities = set(["new york", "los angeles", "chicago", "houston", "phoenix", ...])
+common_cities = set(["new york", "los angeles", "chicago", "houston", "phoenix", "Winchendon", "Bronx", "Grants Pass", "Yonkers", "West Frankfort", "Reading", "Rosenberg", "Garden City",
+    "Baton Rouge", "Clovis", "Los Angeles", "Richlands", "Bellaire", "Milwaukee", "Crowley", "Laneville",
+    "Hoffman Estates", "Alexandria", "Watertown", "Roy", "Overton", "Flint", "Omaha", "Baxter", "South Bay",
+    "Stockton", "Hereford", "Denver", "Fresno", "Ellenburg Depot", "Maynardville", "Sewell", "Louisville",
+    "Natchez", "Augusta", "Clintonville", "Hoboken", "Thermal", "Oley", "Bridgeton", "Prichard", ])
 
 countries_regex = {
     'US': re.compile(r'^(United States|US|USA)$', re.IGNORECASE),
