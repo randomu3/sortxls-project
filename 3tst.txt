@@ -1,0 +1,2 @@
+Original File: 3.txt
+Identified Columns: First name|Last name|Address|City|State|Zip|Email|Phone

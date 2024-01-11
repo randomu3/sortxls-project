@@ -1,5 +1,3 @@
-Fulдname|Zip|City|Address|Phone
-
 Traci H Nolan|98606|Brush Prairie|18200 NE 149th Ave|3609104619
 Leonard Wasson|57106|Sioux Falls|945 s Marion Rd|6052012350
 james b young|77346|Humble|8246 Magnolia Glen Dr|2145074024
@@ -28,7 +26,7 @@ Thomas E Holtz|58703|Minot|607 Bavaria Drive|7015090727
 Adelaide Brady|79329|Idalou|17316 N FM 400|8062391018
 Tucker S Sholtes|33316|Fort Lauderdale|1920 S Ocean Drive|6077593939
 David Aseltine|05602|Middlese|90 Lower Barnett Hill Road|8022233620
-Erica  Kling;53219|Milwaukee|2844 s 27th street|4147455796
+Erica  Kling|53219|Milwaukee|2844 s 27th street|4147455796
 Meg Benke|12866|Saratoga springs|202 east ave|5185270059
 Holly A Voight|75773|Mineola|306 W Blair|9034316180
 Courtney A Paradis|06010|Bristol|585 Fern Hill Road|8603875261

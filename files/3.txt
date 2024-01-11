@@ -1,5 +1,3 @@
-First name|Last name|Address|City|State|Zip|Email|Phone
-
 joan|fellows|721 river st|Winchendon|MA|01475|nora721river@gmail.com|(978) 297-5016
 daisy|Dejesus|748 Edison ave Bronx ny 10465|Bronx|NY|10465|ddejesus128@gmail.com|718-239-8238
 Richard|Paz|1109 Acacia Lane|Grants Pass|OR|97526|pazrichard438@gmail.com|5412871748

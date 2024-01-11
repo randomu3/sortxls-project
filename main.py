@@ -1,86 +1,191 @@
-# main.py
-import pandas as pd
 import re
-import os
+import pandas as pd
+import phonenumbers
+from collections import defaultdict
+from validate_email import validate_email
+from email_validator import validate_email, EmailNotValidError
+import logging
+from dictionary import states_regex, common_first_names, common_last_names, common_cities, countries_regex
 
-# Определение функций для проверки содержимого столбцов
-def is_email(s):
-    return bool(re.match(r"[^@]+@[^@]+\.[^@]+", s))
+# Настройка логирования
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
-def is_phone(s):
-    return bool(re.match(r"(\+\d{1,3})?[\s-]?(\(\d{3}\))?[\s-]?\d{3}[\s-]?\d{2}[\s-]?\d{2}", s))
+# Обновление регулярных выражений
+possible_columns = {
+    'Fullname': re.compile(r'^(?![\s.]+$)[a-zA-Z\s.]{2,50}(?<!\s)$', re.IGNORECASE),
+    'First name': re.compile(r'^(?![\s.]+$)[a-zA-Z\s.]{2,30}$', re.IGNORECASE),
+    'Last name': re.compile(r'^(?![\s.]+$)[a-zA-Z\s.]{2,30}$', re.IGNORECASE),
+    'Zip': re.compile(r'^\d{5}(-\d{4})?$', re.IGNORECASE),
+    'City': re.compile(r'^(?![\s.]+$)[a-zA-Z\s.-]{2,50}$', re.IGNORECASE),
+    'State': re.compile(r'^(?![\s.]+$)[a-zA-Z\s.]{2,50}$', re.IGNORECASE),
+    'Address': re.compile(r'^\d+\s+[\w\s.-]+(\s+[\w\s.-]+)*$', re.IGNORECASE),  # Обновлено для учета номеров квартир
+    'Phone': re.compile(r'^\d{10,}$'),  # Обновленный шаблон для телефонов
+    'Country': re.compile(r'^(?![\s.]+$)[a-zA-Z\s.]{2,50}$', re.IGNORECASE),
+    'Email': re.compile(r'^[\w.-]+@[\w.-]+\.\w+$', re.IGNORECASE)  # Обновлено для учета дополнительных символов
+}
 
-def is_country(s):
-    return s.lower() in ['us', 'usa', 'united states', 'unitedstates']
+def sanitize_email(email):
+    return email.strip().lower().rstrip('a,.')  # Add any other characters to strip as needed
 
-def is_fullname(s):
-    return " " in s  # Простое предположение, что полное имя содержит пробел
+# Функция для проверки телефонного номера
+def is_valid_phone(number, country="US"):
+    try:
+        phone_number = phonenumbers.parse(number, country)
+        return phonenumbers.is_valid_number(phone_number)
+    except phonenumbers.NumberParseException as e:
+        logging.error(f"Error parsing phone number {number}: {e}")
+        return False
 
-def is_name(s):
-    # Имя обычно содержит только буквы, может включать апострофы или тире
-    return bool(re.match(r"^[a-zA-Zа-яА-ЯёЁ-]+[a-zA-Zа-яА-ЯёЁ' -]*$", s))
+def is_valid_email(email):
+    try:
+        # Validate
+        v = validate_email(email)
+        # Replace with normalized form
+        email = v["email"]
+        return True
+    except EmailNotValidError as e:
+        # Email is not valid, exception message is human-readable
+        logging.error(str(e))
+        return False
 
-def is_address(s):
-    # Адрес обычно содержит цифры и слова, может включать названия улиц
-    return bool(re.search(r'\d', s)) and bool(re.search(r'\D', s))
+# Implement resolve_ambiguous_columns function
+def resolve_ambiguous_columns(candidates, col_data):
+    if 'Email' in candidates and 'Phone' in candidates:
+        email_count = sum(1 for item in col_data if possible_columns['Email'].match(item))
+        phone_count = sum(1 for item in col_data if possible_columns['Phone'].match(item))
+        if email_count > phone_count:
+            return 'Email'
+        else:
+            return 'Phone'
+    # Пример использования словарей для разрешения неоднозначности между именем и фамилией
+    if 'First name' in candidates and 'Last name' in candidates:
+        first_name_count = sum(1 for item in col_data if item in common_first_names)
+        last_name_count = sum(1 for item in col_data if item in common_last_names)
+        if first_name_count > last_name_count:
+            return 'First name'
+        else:
+            return 'Last name'
+    return candidates[0]
 
-def is_zip(s):
-    # ZIP код обычно содержит только цифры (простая версия)
-    return s.isdigit()
+# Функция для определения типа столбца
+def identify_column(col_data):
+    column_matches = defaultdict(int)
 
-def is_city_or_state(s):
-    # Город или штат обычно содержат только буквы, может включать пробелы и специальные символы
-    return bool(re.match(r"^[a-zA-Zа-яА-ЯёЁ .-]+$", s))
+    for item in col_data:
+        item = str(item).strip().lower()
+        matched = False
 
-# Функция определения столбцов
-def identify_columns(df):
-    column_mapping = {}
-    used_titles = set()  # Для отслеживания уже использованных заголовков
+        for column_name, pattern in possible_columns.items():
+            if pattern.match(item):
+                if column_name == 'Phone' and not is_valid_phone(item):
+                    continue
+                if column_name == 'Email' and not is_valid_email(item):
+                    continue
 
-    for col in df.columns:
-        sample_data = df[col].dropna().astype(str)
+                # Additional check for State column using the states_regex dictionary
+                if column_name == 'State' and not any(states_regex[state].match(item) for state in states_regex):
+                    continue
 
-        # Проверка каждого условия и обновление соответствующих заголовков
-        if 'Email' not in used_titles and sample_data.apply(is_email).any():
-            column_mapping[col] = 'Email'
-            used_titles.add('Email')
-        elif 'Phone' not in used_titles and sample_data.apply(is_phone).any():
-            column_mapping[col] = 'Phone'
-            used_titles.add('Phone')
-        elif 'Country' not in used_titles and sample_data.apply(is_country).any():
-            column_mapping[col] = 'Country'
-            used_titles.add('Country')
-        elif 'Fullname' not in used_titles and sample_data.apply(is_fullname).any():
-            column_mapping[col] = 'Fullname'
-            used_titles.add('Fullname')
-        # Добавьте здесь логику для остальных столбцов, например, для 'First name', 'Last name', 'Address', 'City', 'State', 'Zip'
+                # Additional check for Country column using the countries_regex dictionary
+                if column_name == 'Country' and not any(countries_regex[country].match(item) for country in countries_regex):
+                    continue
 
-    return column_mapping
+                # Additional logic to differentiate between Fullname, First name, and Last name
+                if column_name in ['Fullname', 'First name', 'Last name']:
+                    name_parts = item.split()
+                    if column_name == 'Fullname' and len(name_parts) < 2:
+                        continue
+                    if column_name == 'First name' and item not in common_first_names:
+                        continue
+                    if column_name == 'Last name' and item not in common_last_names:
+                        continue
 
-# Функция обработки файла
-def process_file(file_path):
-    df = pd.read_csv(file_path, delimiter='|')
+                # Улучшенная проверка для городов
+                if column_name == 'City':
+                    if item in common_cities:
+                        column_matches[column_name] += 1
+                        matched = True
+                    continue  # Пропускаем остальные проверки для городов
 
-    # Определение столбцов
-    mapping = identify_columns(df)
+                column_matches[column_name] += 1
+                matched = True
+                break
 
-    # Перестановка столбцов
-    ordered_columns = ['Fullname', 'Address', 'City', 'State', 'Zip', 'Country', 'Phone', 'Email']
-    df = df.rename(columns=mapping)
-    final_columns = [col for col in ordered_columns if col in df.columns]
-    df = df[final_columns]
+        if not matched:
+            # Additional logic to handle unknown data
+            if item.isdigit():
+                column_matches['Numeric'] += 1
+            elif any(keyword in item for keyword in ['street', 'ave', 'road']):
+                column_matches['Address'] += 1
+            else:
+                column_matches['Unknown'] += 1
 
-    # Сохранение в новый файл
-    file_name, file_extension = os.path.splitext(os.path.basename(file_path))
-    new_filename = 'processed_' + file_name + file_extension
-    new_file_path = os.path.join(os.path.dirname(file_path), new_filename)
+    # Select the most likely column type
+    if not column_matches:
+        return 'Unknown'
 
-    # В начало файла добавляем строку с названием и форматом старого файла
-    with open(new_file_path, 'w') as new_file:
-        new_file.write(f'Original File: {file_name}{file_extension}\n')
-        df.to_csv(new_file, index=False, header=True)
+    sorted_matches = sorted(column_matches.items(), key=lambda x: x[1], reverse=True)
+    most_likely_column = sorted_matches[0][0]
 
-    return new_file_path
+    # Check for maximum number of matches
+    max_matches = max(column_matches.values())
+    candidates = [col for col, matches in column_matches.items() if matches == max_matches]
 
-# Пример использования
-process_file('files/4.txt')
+    # Resolve ambiguities
+    if len(candidates) > 1:
+        return resolve_ambiguous_columns(candidates, col_data)
+    
+    return most_likely_column
+
+# Function to process a file and identify columns using pandas
+def process_file_with_pandas(file_path):
+    # Read the file into a pandas DataFrame
+    logging.info(f"Processing file: {file_path}")
+    df = pd.read_csv(file_path, delimiter='|', header=None)
+    # Transpose the DataFrame to work with columns as rows
+    transposed_df = df.T
+    # Identify each column
+    column_names = [identify_column(col.astype(str)) for col in transposed_df.values]
+    return '|'.join(column_names)
+
+# Функция для сравнения результатов с тестовыми файлами и вывода содержимого
+def compare_and_print_contents(file_path, test_file_path, identified_columns):
+    with open(file_path, 'r') as file:
+        original_content = file.read().strip()
+    with open(test_file_path, 'r') as test_file:
+        test_content = test_file.read().strip()
+    
+    if test_content == identified_columns:
+        logging.info(f"File {file_path} matches the test file {test_file_path}")
+    else:
+        logging.warning(f"File {file_path} does not match the test file {test_file_path}")
+
+    # Вывод содержимого оригинального и тестового файлов
+    print(f"Original File: {file_path}\n{original_content}")
+    print(f"Test File: {test_file_path}\n{test_content}")
+    
+    # Сравнение идентифицированных столбцов с тестовым файлом
+    return test_content == identified_columns
+
+# Main function to compare and print file contents
+def main():
+    # List of file paths to be processed
+    file_paths = ['files/1.txt', 'files/2.txt', 'files/3.txt']
+    # List of test file paths for comparison
+    test_paths = ['1tst.txt', '2tst.txt', '3tst.txt']
+
+    # Process each file and compare the results with the test files
+    for file_path, test_path in zip(file_paths, test_paths):
+        identified_columns = process_file_with_pandas(file_path)
+        comparison_result = compare_and_print_contents(file_path, test_path, identified_columns)
+
+        # Print the comparison result
+        if comparison_result:
+            print(f"Results match with {test_path}")
+        else:
+            print(f"Results do NOT match with {test_path}")
+            print(f"Identified Columns: {identified_columns}\n")
+
+# Call the main function
+if __name__ == "__main__":
+    main()

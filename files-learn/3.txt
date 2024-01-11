@@ -1,0 +1,43 @@
+First name|Last name|Address|City|State|Zip|Email|Phone
+
+joan|fellows|721 river st|Winchendon|MA|01475|nora721river@gmail.com|(978) 297-5016
+daisy|Dejesus|748 Edison ave Bronx ny 10465|Bronx|NY|10465|ddejesus128@gmail.com|718-239-8238
+Richard|Paz|1109 Acacia Lane|Grants Pass|OR|97526|pazrichard438@gmail.com|5412871748
+YARIZA|RIVER|170 Lockwood Ave|Yonkers|NY|10701|riverayriza1@gmail.com|914-3383704
+Cynthia|Stout|610 E. 9th St|West Frankfort|IL|62896|aubreylynnsgrammy@gmail.com|6182186566
+Michelle|Bria|380 Walnut Road|Reading|PA|19606|mbria001@gmail.com|6108169839
+Jennifer|Andrews|1317 mahlmann St|Rosenberg|TX|77471|msjlee928@gmail.com|8327972447
+justin|lee|802 north 5th street|Garden City|KS|67846|jrock.lee6969@gmail.com|7853132869
+Jalanski|London|4189 Westbrook|Baton Rouge|LA|70806|jalanskilondon5@gmail.coma|2257336323
+Cindy|Parr|1300 Minnewawa Ave|Clovis|CA|93612|cindyparr378@gmail.com|559-649-8546
+Bradley Jay|Killam|1107 W 42nd St|Los Angeles|CA|90037-1814|bradleyjaykillam@gmail.com|3234209920
+Mae|Smith|108 Carson Ave|Richlands|VA|24641|maesmith936@gmail.com|276 210 3694
+Lilian consuelo|Papa|4510 Birch Street|Bellaire|TX|77401-2605|li2pa2@aol.com|(904)-333-4824
+Cathy|Kaszuba|515 s 71st Street|Milwaukee|WI|53214|drpeppergirl2005@yahoo.com|4144994028
+Linda J|Young|519 E 14th St|Crowley|LA|70526|younglinda96@yahoo.com|3372509747
+Mary|Neill|8104 cr 452 W|Laneville|TX|75667|mary1958morris@outlook.com|9036465823
+PRAJAPATI|VIREN|5510 MALLARD LANE|HOFFMAN ESTATES|IL|60292|link2sky@yahoo.com|(630) 202-7245
+heard|Mary|7723 Dove Dr|Alexandria|VA|22306|marysongwr@gmail.com|7037801105
+Tina|Harlach|309 mill Street|Watertown|NY|13601|cjhsls2017@gmail.com|3155861954
+Gretchen|Haigwood|4346 s 2350 w|Roy|UT|84067|gretchen08131978@gmwil.com|3854714592
+Debra|Howard|10557 Cr 165 N|Overton|TX|75684|dlhoward2003@gmail.com|9037524683
+Mildred|Johnson|1317 Washington Ave|Flint|MI|48503|johnsonmildred346@gmail.com|(810) 308-6038
+RUPERT|WHITLEY|Po Box 11421|Omaha|NE|68111|rwhitley012@gmail.com|(402) 679-6404
+Crystal|Harville|7040 brown ridge road|Baxter|TN|38544|crystalmharville@icloud.com|6155800467
+Malika|Walker|845 Palm Beach Rd|South Bay|FL|33493|malikawalker96@gmail.com|5619041392
+toni|richardson|508 Howard|Stockton|CA|95206|toni21434@gmail.com|2093990633
+Tiffani d|bell|301 w 2nd st|Hereford|TX|79045|tiffanibell@yahoo.com|806-717-9392
+Sarah|Sanchez|1720 E 112th Ave|Denver|CO|80233|sanchezsarah545@gmail.com|3038622418
+Angelita|Soto|2037s S 4th St|FRESNO|CA|93702|sotobebe3@gmail.com|5597935190
+Amanda|Rougeau-Ortiz|5579 military turnpike|Ellenburg Depot|NY|12935|rougeauamanda28@gmail.com|5185786468
+Michael|Taylor|122 Hill Acre rd|Maynardville|TN|37807|mtaylor2886@gmail.com|8652080130
+John|Jackson|704 Arons Circle|Sewell|NJ|08080|jswig1214@gmail.com|8568706352
+Diana|Ingram|420 Ivy Ave|Louisville|MS|39339|dianaingram9603@gmail.com|(662) 736-0072
+Vaneika|Frye|420A watts ave|Natchez|MS|39120|natchez601.vf@gmail.com|(601) 443-7864
+James|Davis|2140 bayvale rd|Augusta|GA|30909|jddinappling@gmail.com|7068772421
+Dawn|Stueck|25 N 12th Street Apt 203|Clintonville|WI|54929|stueckct@gmail.com|7158531344
+bambi|maine|470 Kelly st|Hoboken|GA|31542|bambimaine83165@gmail.com|9123877663
+Juana|Martinez|88100 AV 57|Thermal|CA|92274|juanamartinez032020@gmail.com|4425997174
+Toni|Rapp|2628 W Philadelphia Ave|Oley|PA|19547|puttflsts@aol.com|6108233368
+Wylisha|Bell|130 Pamphylia Avenue|Bridgeton|NJ|08302|hairstylist_stasha@yahoo.com|6093810843
+Janice|Christian|15 Gragston Lane|Prichard|WV|25555|janicechristian4@gmail.com|3047304800

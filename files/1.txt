@@ -1,5 +1,3 @@
-Fullname|Address|City|State|Zip|Country|Phone|Email
-
 kurt holt|3210 18th St Apt 18|EVERETT|WA|98201|US|14259037318|bowzerboi1@gmail.com
 Robbin Morris|2201 Baytree Rd|Valdosta|GA|31605|US|2298055929|robbin.hurt.19@gmail.com
 Joseph Galluzzo|95 Stebbins Rd|Sanford|ME|04073|UNITED STATES|2076511207|ecfloor@metrocast.net

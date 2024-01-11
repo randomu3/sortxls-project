@@ -1,0 +1,2 @@
+Original File: 2.txt
+Identified Columns: Fullname|Zip|City|Address|Phone

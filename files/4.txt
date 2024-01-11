@@ -1,5 +1,3 @@
-First name|Last name|Fullname|Zip|State|City|Address|Email|Phone
-
 Salhuana|Jose|Salhuana Jose|33433|FL|Boca Raton|8571 Old Towne Way|josesalhuana4@gmail.com|5613226876
 Pritt|Cristina|Pritt Cristina|17310|PA|Cashtown|P.O. Box 14 236 high st|froggin17307@yahoo.com|7177524355
 Džinić|Ado|Džinić Ado|72270|0|Travnik|Mehmed paše Kukavice br.14 72270 Travnik|dzinga.car@gmail.com|0038761696451
