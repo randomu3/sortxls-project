@@ -164,7 +164,11 @@ def identify_column(col_data):
 def process_file_with_pandas(file_path):
     # Read the file into a pandas DataFrame
     logging.info(f"Processing file: {file_path}")
-    df = pd.read_csv(file_path, delimiter='|', header=None)
+    try:
+        df = pd.read_csv(file_path, delimiter='|', header=None, error_bad_lines=False)
+    except Exception as e:
+        logging.error(f"Ошибка при чтении файла: {e}")
+        return None
     # Transpose the DataFrame to work with columns as rows
     transposed_df = df.T
     # Identify each column
@@ -193,9 +197,9 @@ def compare_and_print_contents(file_path, test_file_path, identified_columns):
 # Main function to compare and print file contents
 def main():
     # List of file paths to be processed
-    file_paths = ['files/1.txt', 'files/2.txt', 'files/3.txt']
+    file_paths = ['files/5.txt']
     # List of test file paths for comparison
-    test_paths = ['1tst.txt', '2tst.txt', '3tst.txt']
+    test_paths = ['5tst.txt']
 
     # Process each file and compare the results with the test files
     for file_path, test_path in zip(file_paths, test_paths):
